@@ -123,6 +123,8 @@ argument-hint: '実装対象の機能名、要件ID/設計ID、または変更�
 - 変更した内容
 - 変更した主なファイル
 - 実行した検証
-- `docs/evidence/implementation.evidence.json`（実装完了の証拠、検証コマンド、BLOCKER 0件の証明、成果物 hash）
+- **`docs/evidence/implementation.evidence.json`**（正本：実装完了の証拠。`metrics.blockers=0`、`commands[]` に test/lint/build の `exit_code: 0`、`artifacts[]` に変更ファイルの sha256 を記録）
+- **`docs/traceability.json` の更新**（要件 ID ↔ 実装ファイル ↔ テスト ID の紐付けを反映）
+- 出力前に `waterfall-delivery-cycle/scripts/validate_evidence.py` が利用可能なら実行して schema・hash・blocker を機械検証
 - 未実行の検証と理由
 - 残リスクまたは次に確認すべき事項

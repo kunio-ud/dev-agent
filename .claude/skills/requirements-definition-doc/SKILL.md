@@ -246,7 +246,10 @@ Baseの詳細は [references/standards-basis.md](./references/standards-basis.md
 | 6.2 / 7.2 / 11章の `関連受入条件ID` が 13.2 で定義済みか | 各表の AC-XXX を抽出し、13.2 の AC マスタと突合 |
 | 曖昧語（「高速」「大量」「適切」等）が本文に残っていないか | grep で検出 |
 
-**実行手段**: `Grep` が使えればそれで突合。使えない環境では Read で全章を読み込み、メモリ上で ID を突合する。「ツールが無いから諦める」は禁止。
+**実行手段の優先順位**:
+1. **第一選択**: `waterfall-delivery-cycle/scripts/validate_traceability.py` が利用可能なら実行する。`docs/traceability.json` の ID 重複・リンク参照・AC→TC 到達性を機械的に検証。
+2. **第二選択**: スクリプトが無ければ `Grep` で各 ID を突合する。
+3. **フォールバック**: いずれも使えない環境では Read で全章を読み込み、メモリ上で ID を突合する。「ツールが無いから諦める」は禁止。
 
 **TODO 集約レポート**
 
@@ -308,6 +311,8 @@ Baseの詳細は [references/standards-basis.md](./references/standards-basis.md
 | 受入条件（AC-） | 13章 | 基本設計 各章のレビュー観点 / `test-design` |
 | 移行要件（MIG-） | 12章 | 基本設計 10章「移行設計」 |
 | 未解決ブロッカー | TODO 集約レポート（BLOCKER 行） | **要件FIX前に解消必須**。残置で基本設計に進まない |
+| **要件 ID と受入条件の紐付け（正本）** | `docs/traceability.json` | `basic-design-doc` / `validate_traceability.py` |
+| **要件定義完了の証拠（正本）** | `docs/evidence/requirements-definition.evidence.json`（`metrics.blockers=0`、artifacts sha256） | `waterfall-delivery-cycle`（フェーズゲート判定） / `release-readiness` |
 
 > **重要**: 11章「非機能要件」は**目標値と根拠まで**。測定方法・合格判定・検証スクリプトの作成は基本設計 8章 / `test-design` の責務。要件側で実装方法まで踏み込まない。
 

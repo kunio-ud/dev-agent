@@ -198,8 +198,9 @@ argument-hint: '対象システム名・機能名、または既存ドキュメ�
 人間レビューの前に、以下のクロスチェックを機械的に実行し、不整合があれば修正してから出力する。
 
 **実行手段の優先順位**:
-1. **第一選択**: `Grep` / `yq` / `jq` 等のツールが使える環境ならこれで突合する（高速・正確）
-2. **フォールバック**: ツールが無い環境（Windows素の状態など）では、**全該当ファイル（openapi.yaml / process-flow.md / screen-design.md / error-design.md / architecture-policy.md）を Read で読み込み、メモリ上で ID を突合せよ**。「ツールが無いから諦める」は禁止。
+1. **第一選択**: `scripts/validate_traceability.py` / `validate_evidence.py`（`waterfall-delivery-cycle/scripts/`）が利用可能な環境ならこれを実行する。`docs/traceability.json` の ID 重複・リンク参照・AC→TC 到達性、`docs/evidence/{phase}.evidence.json` の schema・artifact sha256・blocker 件数を機械的に検証する。
+2. **第二選択**: スクリプトが無い場合は `Grep` / `yq` / `jq` で突合（高速・正確）
+3. **フォールバック**: いずれも使えない環境では、**全該当ファイル（openapi.yaml / process-flow.md / screen-design.md / error-design.md / architecture-policy.md）を Read で読み込み、メモリ上で ID を突合せよ**。「ツールが無いから諦める」は禁止。
 
 | チェック項目 | チェック方法 |
 |-------------|------------|
@@ -294,6 +295,8 @@ argument-hint: '対象システム名・機能名、または既存ドキュメ�
 | シーケンス図（正常系＋準正常系） | 7 章（[process-flow.md](./assets/templates/process-flow.md)） | `implementation-coding` / `unit-test-design` |
 | 非機能の受入条件 | 8 章（[non-functional.md](./assets/templates/non-functional.md)） | `test-design` / `release-readiness` |
 | 未解決ブロッカー | TODO 集約レポート（BLOCKER 行） | 全後続スキル（実装着手前に解消必須） |
+| **要件↔設計のID紐付け（正本）** | `docs/traceability.json` | 全後続スキル / `validate_traceability.py` |
+| **基本設計完了の証拠（正本）** | `docs/evidence/basic-design.evidence.json`（`metrics.blockers=0`、artifacts sha256、commands 実行結果） | `waterfall-delivery-cycle`（フェーズゲート判定） / `release-readiness` |
 
 > **重要**: 2.4 はあくまで「方針レベル」。命名規則・ディレクトリ構成・エラーの実装形・ログフォーマット・Lint等の**具体形は `project-coding-rules` で `CODING_RULES.md` に展開**する。`implementation-coding` は最終的に `CODING_RULES.md` を正として読む。
 
