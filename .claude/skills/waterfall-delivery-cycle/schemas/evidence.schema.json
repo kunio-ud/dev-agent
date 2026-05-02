@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Phase Evidence",
+  "description": "Evidence of phase completion for phase gate validation",
+  "type": "object",
+  "properties": {
+    "phase": {
+      "enum": [
+        "requirements-definition",
+        "basic-design",
+        "unit-test-design-pre",
+        "coding-rules",
+        "implementation",
+        "unit-test-design-post",
+        "test-design",
+        "test-execution",
+        "release-readiness",
+        "operation-design"
+      ]
+    },
+    "status": { "enum": ["Completed", "In-Progress", "Failed"] },
+    "completion_date": { "type": "string", "format": "date-time" },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "blockers": { "type": "integer", "minimum": 0 },
+        "todos": { "type": "integer", "minimum": 0 },
+        "test_count": { "type": "integer" },
+        "test_success": { "type": "integer" },
+        "test_failure": { "type": "integer" },
+        "coverage": { "type": "number", "minimum": 0, "maximum": 100 }
+      },
+      "required": ["blockers", "todos"]
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": { "type": "string" },
+          "hash": { "type": "string" },
+          "type": { "type": "string" }
+        },
+        "required": ["path"]
+      }
+    },
+    "verification_command": { "type": "string" },
+    "approver": { "type": "string" }
+  },
+  "required": ["phase", "status", "metrics", "artifacts"]
+}

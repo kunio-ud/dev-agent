@@ -1,0 +1,87 @@
+openapi: 3.1.0
+info:
+  title: {{システム名}} API
+  description: |
+    {{システム概要}}
+
+    ## SSoT 宣言
+    本ファイルが API 物理定義の **Single Source of Truth** である。
+    Markdown 側（api-interface.md）に API 一覧を手書きで複製しないこと（不整合の主原因）。
+    Markdown 側は方針・採用根拠・横断ルールのみを扱う。
+
+    ## API-ID と operationId の対応規則
+    - `x-api-id`: 設計書全体（画面・処理フロー・テスト）からのトレーサビリティ用 ID（例: `API-001`）
+    - `operationId`: 実装側で使うキャメルケースの関数名（例: `login`、`getJournalEntries`）
+    - 全 operation で両方を必ず付与する（Spectral 等で機械的に強制）
+  version: 1.0.0
+servers:
+  - url: https://api.example.com/v1
+    description: 本番環境
+paths:
+  /auth/login:
+    post:
+      summary: ログイン
+      operationId: login
+      x-api-id: API-001
+      tags:
+        - 認証
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                login_id:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: 成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+components:
+  schemas:
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+        expires_in:
+          type: integer
+    
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            details:
+              type: array
+              items:
+                type: object
+                properties:
+                  field:
+                    type: string
+                  message:
+                    type: string
+
+  responses:
+    UnauthorizedError:
+      description: 認証失敗
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
