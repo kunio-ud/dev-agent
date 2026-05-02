@@ -31,7 +31,7 @@ argument-hint: '対象Service/関数/ファイル、または関連要件ID・�
 - 基本設計書の画面/API/処理フロー/入力/出力/エラー/権限/状態遷移
 - 対象ファイル、Service、関数、Repository
 - `implementation-coding` 完了報告（実装後差分確認時のみ。変更ファイル、未実行の検証、残リスク）
-- `docs/development/CODING_RULES.md`
+- `docs/03_coding-rules/CODING_RULES.md`
 - 既存テストの配置、命名、テストヘルパー
 - テストランナー、mockライブラリ、実行コマンド
 

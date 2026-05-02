@@ -32,7 +32,7 @@ argument-hint: '実装対象の機能名、要件ID/設計ID、または変更�
 不足していても作業を止めない。ただし、破壊的変更、外部仕様変更、データ破壊リスク、セキュリティ影響がある場合は確認する。
 
 - 対象機能、要件ID、基本設計ID
-- **`docs/development/CODING_RULES.md`**（最優先）— `project-coding-rules` の成果物。命名規則・ディレクトリ構成・エラー実装形・ログフォーマット・Lint・テストツールの正
+- **`docs/03_coding-rules/CODING_RULES.md`**（最優先）— `project-coding-rules` の成果物。命名規則・ディレクトリ構成・エラー実装形・ログフォーマット・Lint・テストツールの正
 - **基本設計書「2.4 アーキテクチャ方針・実装制約」** — `CODING_RULES.md` の根拠（採用ライブラリ、レイヤー責務、横断ライブラリの選定）。`CODING_RULES.md` が無い場合はこちらを直接参照
 - **基本設計書の API 物理定義（`openapi.yaml`）** — API を実装/変更する場合の SSoT
 - **基本設計書の TODO 集約レポートに残っている `BLOCKER` 項目** — 未解決なら実装を進めず確認する
@@ -45,7 +45,7 @@ argument-hint: '実装対象の機能名、要件ID/設計ID、または変更�
 ## 実装手順
 
 1. **コードベースと設計書を読む（読み順は厳守）**
-   - **第一優先: `docs/development/CODING_RULES.md`** — `project-coding-rules` の成果物。命名・配置・エラー実装形・ログフォーマット・Lint・テストツール等、実装の具体形はここを正とする。
+   - **第一優先: `docs/03_coding-rules/CODING_RULES.md`** — `project-coding-rules` の成果物。命名・配置・エラー実装形・ログフォーマット・Lint・テストツール等、実装の具体形はここを正とする。
    - **第二優先: 基本設計書「2.4 アーキテクチャ方針・実装制約」** — `CODING_RULES.md` の方針根拠（採用ライブラリ・レイヤー責務・横断ライブラリの選定）。`CODING_RULES.md` が無い／曖昧な場合はここを直接参照する。
    - **両者が食い違う場合**: 2.4 を優先し、`CODING_RULES.md` の修正をユーザーに提案する（独断で判断しない）。
    - **どちらも無い場合**: 既存コードから規約を読み取り、`project-coding-rules` の起動を提案する。

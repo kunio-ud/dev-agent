@@ -23,8 +23,11 @@ argument-hint: '対象機能名、要件ID/設計ID、またはテスト対象�
 
 | モード | 起動タイミング | 実行ステップ | 出力状態 |
 |---|---|---|---|
-| 設計先行モード | 基本設計完了直後（実装前） | 1〜4, 6 | 観点表・テスト計画のみ。テストケース化は Must 観点に絞る。状態=Designed |
-| 実装後差分確認モード | `unit-test-design（差分確認）` 完了後 | 全ステップ | 観点差分補強、ケース実装状態を Implemented/Pending に更新 |
+| 設計先行モード | 基本設計完了直後（実装前） | 1〜4, 6 | 観点表・テスト計画のみ。テストケース化は Must 観点に絞る。状態=Designed。Must TC は全て未実装のため **evidence.status は必ず "Blocked"** になり、全 Must TC を blocker_ids に登録する。 |
+| 実装後差分確認モード | `unit-test-design（差分確認）` 完了後 | 全ステップ | 観点差分補強、ケース実装状態を Implemented/Pending に更新。Must TC 全実装かつ blockers=0 なら evidence.status="Completed"。 |
+| standalone モード | waterfall インフラなし（traceability.json・validate スクリプト・evidence schema 未整備） | 1〜6 | 観点表・テスト計画・テストケースのみ。Step 7 および完了報告の evidence/traceability 出力はスキップ可。 |
+
+> **waterfall インフラ判定**: `docs/traceability.json` が存在しない、または `scripts/validate_evidence.py` が存在しない場合は standalone モードとして扱い、Step 7 以降をスキップする。
 
 ## 入力優先度
 
@@ -84,7 +87,7 @@ argument-hint: '対象機能名、要件ID/設計ID、またはテスト対象�
    - TBD が解消された場合は `docs/traceability.json` の `status: Resolved`、`resolved_at`（ISO 8601）、`resolution` を記入し、evidence の `notes` に `"TBD-NNN resolved: <解消内容>"` を記録する（contracts §7）。
    - 未解消のTBDはすべて blocker として evidence の `blocker_ids` に追加し、`metrics.blockers` に計上する。
 
-7. **トレーサビリティを確認する**
+7. **トレーサビリティを確認する**（waterfall インフラがある場合のみ。standalone モードはスキップ可）
    - `docs/traceability.json` に TV-/TC-ID を追加し、以下を埋める:
      - `tests[].id`（TV- または TC-）
      - `tests[].traces_to`（AC-ID, FR-ID, NFR-ID 等）
@@ -92,6 +95,10 @@ argument-hint: '対象機能名、要件ID/設計ID、またはテスト対象�
      - `tests[].status`（Designed/Implemented/Pending）
    - AC から TV/TC への到達性を `scripts/validate_traceability.py` で確認する。
    - 要件に対して観点がないもの、観点に対してテストケースがないものを明示する。
+
+## 出力先
+
+- 標準: `docs/05_test-design/` 配下（プロジェクトの慣例があればそれを優先）
 
 ## 出力テンプレート
 
@@ -101,7 +108,18 @@ argument-hint: '対象機能名、要件ID/設計ID、またはテスト対象�
 
 ## 完了報告
 
+以下は**共通**（standalone / waterfall いずれも必須）:
+
 - 作成した観点表/テストケース/テスト計画
+- `unit-test-design` で設計済み/実装済み/実行済みの観点（引き継ぎ元。存在しない場合は省略可）
+- 高リスク観点（RSK-ID 付き）
+- 自動化候補
+- Must TC の実装状態サマリ（実装済み件数 / 合計 Must TC 件数）
+- 未解消 TBD 一覧
+- 要件または設計に不足している情報
+
+以下は **waterfall モードのみ**（`docs/traceability.json` および `scripts/validate_evidence.py` が存在する場合）:
+
 - `docs/traceability.json` 更新（TV-/TC-ID の追加と紐付け、AC→TV→TC 到達性確認済み）
 - `docs/evidence/test-design.evidence.json` を以下の仕様で作成し、`scripts/validate_evidence.py` を Pass させる:
   - `phase: "test-design"`
@@ -111,9 +129,3 @@ argument-hint: '対象機能名、要件ID/設計ID、またはテスト対象�
   - `artifacts[]`: 各成果物ファイルを sha256 ハッシュ付きで登録
   - `blocker_ids[]`: `TBD-NNN` / `RSK-NNN` を列挙
   - `commands[]`: `scripts/validate_traceability.py`、`scripts/validate_evidence.py` の実行結果を含める
-- `unit-test-design` で設計済み/実装済み/実行済みの観点（引き継ぎ元）
-- 高リスク観点（RSK-ID 付き）
-- 自動化候補
-- Must TC の実装状態サマリ（実装済み件数 / 合計 Must TC 件数）
-- 未解消 TBD 一覧
-- 要件または設計に不足している情報

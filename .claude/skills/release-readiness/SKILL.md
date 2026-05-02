@@ -43,6 +43,10 @@ argument-hint: 'リリース対象、テスト結果、障害一覧、または�
 4. **Go/No-Go 判定**
    - 上記を総合し、Go（リリース可能） / No-Go（リリース不可） / Conditional Go（条件付きリリース）を判定する。
 
+## 出力先
+
+- 標準: `docs/08_release-readiness/` 配下（プロジェクトの慣例があればそれを優先）
+
 ## 完了報告
 
 - リリース判定報告書（Go/No-Go Report）

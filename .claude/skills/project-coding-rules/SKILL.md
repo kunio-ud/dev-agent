@@ -15,17 +15,17 @@ argument-hint: '対象リポジトリ、技術スタック、または作成し�
 
 標準:
 
-- `docs/development/CODING_RULES.md`
+- `docs/03_coding-rules/CODING_RULES.md`
 
 規模が大きい場合:
 
-- `docs/development/CODING_RULES.md`
-- `docs/development/FRONTEND_RULES.md`
-- `docs/development/BACKEND_RULES.md`
-- `docs/development/API_RULES.md`
-- `docs/development/DB_RULES.md`
-- `docs/development/TESTING_RULES.md`
-- `docs/development/IAC_RULES.md`
+- `docs/03_coding-rules/CODING_RULES.md`
+- `docs/03_coding-rules/FRONTEND_RULES.md`
+- `docs/03_coding-rules/BACKEND_RULES.md`
+- `docs/03_coding-rules/API_RULES.md`
+- `docs/03_coding-rules/DB_RULES.md`
+- `docs/03_coding-rules/TESTING_RULES.md`
+- `docs/03_coding-rules/IAC_RULES.md`
 
 既存の規約ファイルがある場合は、それを優先して更新する。
 

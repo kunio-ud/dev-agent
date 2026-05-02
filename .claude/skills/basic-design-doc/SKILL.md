@@ -253,9 +253,9 @@ argument-hint: '対象システム名・機能名、または既存ドキュメ�
 
 **出力先**
 
-- 標準: `docs/design/` 配下（プロジェクトの慣例があればそれを優先）
-- OpenAPI: `docs/design/openapi.yaml`（規模が大きい場合は `docs/design/api/` 配下に paths を分割）
-- 画面ワイヤーフレーム等の画像: `docs/design/assets/`
+- 標準: `docs/02_basic-design/` 配下（プロジェクトの慣例があればそれを優先）
+- OpenAPI: `docs/02_basic-design/openapi.yaml`（規模が大きい場合は `docs/02_basic-design/api/` 配下に paths を分割）
+- 画面ワイヤーフレーム等の画像: `docs/02_basic-design/assets/`
 
 **ファイル分割の判断**
 
@@ -315,7 +315,7 @@ SIerの納品物としてWord/PDFが要求されるケースは多い。以下�
 | PDF | Pandoc + LaTeX、または VSCode 拡張 (Markdown PDF) で出力。OpenAPI は Redoc の static HTML を PDF 印刷 |
 | Excel | テーブル定義・画面一覧などの表形式は `.md` 表 → CSV → Excel 取込が現実的。設計書全体の Excel 化は非推奨 |
 
-**Mermaid 図の二重管理回避**: Word/PDF 納品が確定している場合は、最初から `docs/design/assets/diagrams/{図ID}.png` に画像を配置し、Markdown では `![](assets/diagrams/xxx.png)` で参照する運用に統一する（Mermaid ソースは別途 `.mmd` で保管）。
+**Mermaid 図の二重管理回避**: Word/PDF 納品が確定している場合は、最初から `docs/02_basic-design/assets/diagrams/{図ID}.png` に画像を配置し、Markdown では `![](assets/diagrams/xxx.png)` で参照する運用に統一する（Mermaid ソースは別途 `.mmd` で保管）。
 
 ---
 

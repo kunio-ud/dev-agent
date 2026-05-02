@@ -269,15 +269,15 @@ Baseの詳細は [references/standards-basis.md](./references/standards-basis.md
 ## 出力
 
 **出力先**
-- 標準: `docs/requirements/` 配下（プロジェクトの慣例があればそれを優先）
-- 要件一覧（横断管理用）: `docs/requirements/requirements-list.md`
+- 標準: `docs/01_requirements/` 配下（プロジェクトの慣例があればそれを優先）
+- 要件一覧（横断管理用）: `docs/01_requirements/requirements-list.md`
 - OpenAPI や画面詳細など後続成果物の置き場は基本設計スキルに従う
 
 **ファイル分割の判断**
 
 | 規模 | 分割方針 |
 |---|---|
-| 小（機能20以下） | 単一 `requirements.md` |
+| 小（機能20以下） | 単一 `01_requirements.md` |
 | 中（機能20〜80） | 章別分割 |
 | 大（機能80以上） | 章別 ＋ 機能領域別分割 |
 
@@ -286,12 +286,18 @@ Baseの詳細は [references/standards-basis.md](./references/standards-basis.md
 - ユースケース詳細: `use-cases/UC-{連番}.md`
 
 **最終成果物セット**
-1. 章別 Markdown ファイル群（または単一 `requirements.md`）
+
+以下は**共通**（standalone / waterfall いずれも必須）:
+
+1. 章別 Markdown ファイル群（または単一 `01_requirements.md`）
 2. 要件一覧（`requirements-list.md`）
-3. `docs/traceability.json`（正本：要件と受入条件の ID 管理）
-4. `docs/evidence/requirements-definition.evidence.json`（正本：要件定義完了の証拠、BLOCKER 件数、成果物 hash）
-5. TODO 集約レポート（BLOCKER 件数・確認先を必ず明記）
-6. 章構成サマリ（採用／省略章と根拠）
+3. `docs/traceability.json`（要件と受入条件の ID 管理）
+4. TODO 集約レポート（BLOCKER 件数・確認先を必ず明記）
+5. 章構成サマリ（採用／省略章と根拠）
+
+以下は **waterfall モードのみ**（`scripts/validate_evidence.py` および evidence schema が存在する場合）:
+
+6. `docs/evidence/requirements-definition.evidence.json`（正本：要件定義完了の証拠、BLOCKER 件数、成果物 hash）
 
 **後続フェーズ（basic-design-doc）への引き継ぎ**
 
@@ -311,8 +317,8 @@ Baseの詳細は [references/standards-basis.md](./references/standards-basis.md
 | 受入条件（AC-） | 13章 | 基本設計 各章のレビュー観点 / `test-design` |
 | 移行要件（MIG-） | 12章 | 基本設計 10章「移行設計」 |
 | 未解決ブロッカー | TODO 集約レポート（BLOCKER 行） | **要件FIX前に解消必須**。残置で基本設計に進まない |
-| **要件 ID と受入条件の紐付け（正本）** | `docs/traceability.json` | `basic-design-doc` / `validate_traceability.py` |
-| **要件定義完了の証拠（正本）** | `docs/evidence/requirements-definition.evidence.json`（`metrics.blockers=0`、artifacts sha256） | `waterfall-delivery-cycle`（フェーズゲート判定） / `release-readiness` |
+| **要件 ID と受入条件の紐付け** | `docs/traceability.json` | `basic-design-doc` / `validate_traceability.py` |
+| **要件定義完了の証拠**（waterfall モードのみ） | `docs/evidence/requirements-definition.evidence.json`（`metrics.blockers=0`、artifacts sha256） | `waterfall-delivery-cycle`（フェーズゲート判定） / `release-readiness`。`scripts/validate_evidence.py` が存在しない場合は省略可。 |
 
 > **重要**: 11章「非機能要件」は**目標値と根拠まで**。測定方法・合格判定・検証スクリプトの作成は基本設計 8章 / `test-design` の責務。要件側で実装方法まで踏み込まない。
 

@@ -13,7 +13,16 @@
       "Bash(python ../../.claude/skills/waterfall-delivery-cycle/scripts/validate_evidence.py docs/evidence/release-readiness.evidence.json --root .)",
       "Read(//c/Users/user/.claude/skills/waterfall-delivery-cycle/**)",
       "Read(//c/Users/user/.claude/skills/waterfall-delivery-cycle/schemas/**)",
-      "Edit(/.claude/skills/waterfall-delivery-cycle/**)"
+      "Edit(/.claude/skills/waterfall-delivery-cycle/**)",
+      "Edit(/.claude/skills/requirements-definition-doc/**)",
+      "Edit(/.claude/skills/basic-design-doc/**)",
+      "Edit(/.claude/skills/project-coding-rules/**)",
+      "Edit(/.claude/skills/unit-test-design/**)",
+      "Edit(/.claude/skills/implementation-coding/**)",
+      "Edit(/.claude/skills/test-design/**)",
+      "Edit(/.claude/skills/test-execution-report/**)",
+      "Edit(/.claude/skills/operation-design-doc/**)",
+      "Edit(/.claude/skills/release-readiness/**)"
     ]
   }
 }
