@@ -5,7 +5,15 @@
       "Bash(mkdir -p c:/Users/user/Desktop/sss-memo/.claude/skills)",
       "Bash(cp -r c:/Users/user/Desktop/sss-memo/.github/skills/basic-design-doc c:/Users/user/Desktop/sss-memo/.claude/skills/)",
       "Bash(rtk wc *)",
-      "Bash(rtk git *)"
+      "Bash(rtk git *)",
+      "Bash(python3 -c ' *)",
+      "PowerShell(Stop-Process -Id 2116 -Force -ErrorAction SilentlyContinue)",
+      "Bash(python ../../.claude/skills/waterfall-delivery-cycle/scripts/validate_evidence.py docs/evidence/test-execution-report.evidence.json --root .)",
+      "Bash(python ../../.claude/skills/waterfall-delivery-cycle/scripts/validate_evidence.py docs/evidence/operation-design.evidence.json --root .)",
+      "Bash(python ../../.claude/skills/waterfall-delivery-cycle/scripts/validate_evidence.py docs/evidence/release-readiness.evidence.json --root .)",
+      "Read(//c/Users/user/.claude/skills/waterfall-delivery-cycle/**)",
+      "Read(//c/Users/user/.claude/skills/waterfall-delivery-cycle/schemas/**)",
+      "Edit(/.claude/skills/waterfall-delivery-cycle/**)"
     ]
   }
 }

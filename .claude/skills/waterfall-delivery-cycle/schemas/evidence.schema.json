@@ -71,6 +71,7 @@
           "command": { "type": "string", "minLength": 1 },
           "exit_code": { "type": "integer" },
           "status": { "enum": ["Pass", "Fail", "Skipped"] },
+          "manual": { "type": "boolean", "description": "true if this command was executed manually and cannot be automated; use Skipped or automate wherever possible" },
           "executed_at": { "type": "string", "format": "date-time" },
           "summary": { "type": "string" }
         },

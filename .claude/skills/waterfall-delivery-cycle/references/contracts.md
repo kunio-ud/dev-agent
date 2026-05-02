@@ -65,7 +65,22 @@
 - エージェントはまず JSON を更新し、その後に Markdown の表を同期させなければならない。
 - 人間による修正が Markdown に入った場合、オーケストレーターは JSON との乖離（Drift）を検知し、エージェントに同期を促す。
 
-## 6. 検証スクリプト
+## 6. テストケース表（TC）の記載ルール
+
+- TC 表の各行は、実際に存在するテスト関数またはスクリプトに対応していなければならない。
+- 「代替済み」「省略」「他ケースで代替」などのメモ行は TC 表に含めない。代替・除外の記録は「除外観点」節（別セクション）に移す。
+- Must 優先度の TC は test-design フェーズの evidence が Completed になる前に全て実装済みでなければならない。
+  「未実装 → Phase X」は Must TC には禁止。Must TC を後フェーズに送る場合は blocker として記録し、`metrics.blockers > 0` とする。
+- Should/Nice 優先度の TC は未実装のまま次フェーズへ送ることができるが、traceability.json に状態 `Pending` で残し、release-readiness で判断する。
+
+## 7. TBD 解消トラッキングルール
+
+- TBD が `Proposed` から `Resolved` になる場合、そのフェーズの evidence.json の `notes` フィールドに `"TBD-NNN resolved: <解消内容>"` を記録する。
+- traceability.json の該当 TBD の `status` を `Resolved` に更新する際、`resolved_at`（ISO 8601）と `resolution`（解消内容の要約）フィールドを付与する。
+- TBD が Resolved にならないまま次フェーズの evidence が Completed になってはならない。
+  未解消 TBD はブロッカー相当（`blocker_ids` に追加し `metrics.blockers` に計上）として扱う。
+
+## 8. 検証スクリプト
 - `scripts/validate_traceability.py <traceability.json>` で ID 形式、重複、リンク参照の存在、AC から TC への到達性を検証する。
 - `scripts/validate_evidence.py <evidence.json>` で schema、artifact hash、blocker 件数、command 結果を検証する。
 - JSON Schema は構造の最低限を担保する。ID 参照整合性とファイル hash は必ず検証スクリプトで確認する。

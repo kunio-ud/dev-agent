@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python ../../.claude/skills/waterfall-delivery-cycle/scripts/validate_evidence.py docs/evidence/coding-rules.evidence.json --root .)",
+      "Bash(rtk find *)",
+      "Bash(npm install *)",
+      "Bash(npm test *)"
+    ]
+  }
+}

@@ -83,6 +83,15 @@ def validate(data: dict[str, Any], evidence_path: Path, root: Path) -> list[str]
     if data.get("status") == "Completed" and blockers:
         errors.append("Completed evidence cannot have blockers")
 
+    test_fields = ("test_count", "test_success", "test_failure", "test_pending")
+    if all(isinstance(metrics.get(f), int) for f in test_fields):
+        total = metrics["test_success"] + metrics["test_failure"] + metrics["test_pending"]
+        if metrics["test_count"] != total:
+            errors.append(
+                f"metrics.test_count ({metrics['test_count']}) != "
+                f"test_success + test_failure + test_pending ({total})"
+            )
+
     artifacts = data.get("artifacts")
     if not isinstance(artifacts, list) or not artifacts:
         errors.append("artifacts must be a non-empty array")
@@ -124,6 +133,13 @@ def validate(data: dict[str, Any], evidence_path: Path, root: Path) -> list[str]
                 errors.append(f"commands[{index}] is Pass but exit_code is {exit_code}")
             if status == "Fail" and exit_code == 0:
                 errors.append(f"commands[{index}] is Fail but exit_code is 0")
+            cmd_str = command.get("command", "")
+            is_manual = command.get("manual", False)
+            if cmd_str.startswith("manual:") and status == "Pass" and not is_manual:
+                errors.append(
+                    f"commands[{index}] has manual command but status is Pass; "
+                    "set manual:true or use status Skipped, or automate the command"
+                )
 
     return errors
 
