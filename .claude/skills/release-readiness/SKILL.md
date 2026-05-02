@@ -9,7 +9,7 @@ argument-hint: 'リリース対象、テスト結果、障害一覧、または�
 ## 目的
 
 要件定義（AC-）、基本設計、テスト結果、および運用設計をもとに、対象 Epic/機能が本番リリース可能な状態かを判定する（Go/No-Go 判断）。
-本スキルは **`traceability.json` および各フェーズの `evidence.json` を機械的に検証**し、主観ではなくデータに基づいた最終合意を支援する。
+本スキルは **`docs/traceability.json` および各フェーズの `docs/evidence/{phase}.evidence.json` を機械的に検証**し、主観ではなくデータに基づいた最終合意を支援する。
 
 ## 位置づけ
 
@@ -17,21 +17,24 @@ argument-hint: 'リリース対象、テスト結果、障害一覧、または�
 
 ## 入力として確認する情報（SSoT）
 
-1. **`traceability.json`**: 
+1. **`docs/traceability.json`**: 
    - 全 `FR-` / `NFR-` が `SCR-` / `API-` / `FLOW-` / `BAT-` 等に紐付いているか。
    - 全 `AC-` に対応する `TC-` が `Pass` になっているか。
-2. **各フェーズの `evidence.json`**:
-   - `blockers` が全フェーズで 0 件であるか。
+2. **各フェーズの `docs/evidence/{phase}.evidence.json`**:
+   - `metrics.blockers` が全フェーズで 0 件であるか。
+   - `blocker_ids` が全フェーズで空であるか。
    - テスト成功率が目標（100%）に達しているか。
    - 運用設計（Runbook, 監視）が完了しているか。
+   - `artifacts[].hash` が実ファイルの sha256 と一致しているか。
+   - 必須 `commands[]` が `status: Pass` かつ `exit_code: 0` であるか。
 
 ## 判定手順
 
 1. **トレーサビリティ検証**
-   - 未実装の要件、未実施のテストがないかを `traceability.json` から抽出する。
+   - 未実装の要件、未実施のテストがないかを `docs/traceability.json` から抽出する。
 
 2. **エビデンス検証**
-   - 各フェーズエージェントが提出した `evidence.json` を突合する。
+   - 各フェーズエージェントが提出した `docs/evidence/{phase}.evidence.json` を突合する。
    - 成果物ハッシュの整合性を確認し、ドキュメントの改ざんや未更新がないかを確認する。
 
 3. **移行・切戻しプランの確認**
@@ -44,5 +47,5 @@ argument-hint: 'リリース対象、テスト結果、障害一覧、または�
 
 - リリース判定報告書（Go/No-Go Report）
 - リリース判定チェックリスト結果
-- 最終的な `evidence.json`（リリース判定結果を格納）
+- 最終的な `docs/evidence/release-readiness.evidence.json`（リリース判定結果を格納）
 - 次回以降の改善申し送り事項

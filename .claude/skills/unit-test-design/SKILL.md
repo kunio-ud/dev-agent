@@ -120,8 +120,8 @@ argument-hint: '対象Service/関数/ファイル、または関連要件ID・�
 ## 完了報告
 
 - 作成したUT観点/UTケース
-- `traceability.json` 更新（UT-ID の追加と紐付け）
-- `evidence.json`（単体テスト完了の証拠、カバレッジ等）
+- `docs/traceability.json` 更新（UTV-ID / UT-ID の追加と紐付け）
+- `docs/evidence/unit-test-design-pre.evidence.json` または `docs/evidence/unit-test-design-post.evidence.json`（単体テスト設計/差分確認完了の証拠、カバレッジ等）
 - 各UT観点の状態: 設計済み / 実装済み / 実行済み / 未実行
 - 追加/更新すべきテストファイル
 - mock/stub/fake/DB込みにした依存・理由

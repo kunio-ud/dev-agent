@@ -1,60 +1,86 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "Traceability Master",
-  "description": "Lifecycle traceability from requirements to test results",
+  "description": "Lifecycle traceability from requirements to test results. JSON is the system of record; Markdown tables are generated views.",
   "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "idRef": {
+      "type": "string",
+      "pattern": "^(BR|FR|SCRR|RPT|NTF|BAT|DR|IR|MIG|IMP|TST|AC|CON|TBD|RSK)-[0-9]{3,}$|^NFR-[A-Z0-9]+-[0-9]{3,}$|^SCR-[A-Z0-9]+-[0-9]{3,}$|^API-[0-9]{3,}$|^TBL-[0-9]{3,}$|^FLOW-[0-9]{3,}$|^ERR-[A-Z0-9]+-[0-9]{3,}$|^UTV-[0-9]{3,}$|^UT-[0-9]{3,}$|^TV-[0-9]{3,}$|^TC-[0-9]{3,}$|^TD-[0-9]{3,}$|^UTF-[0-9]{3,}$"
+    },
+    "links": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/idRef" },
+      "uniqueItems": true,
+      "default": []
+    }
+  },
   "properties": {
-    "project": { "type": "string" },
+    "project": { "type": "string", "minLength": 1 },
     "version": { "type": "string" },
     "last_updated": { "type": "string", "format": "date-time" },
     "requirements": {
       "type": "array",
       "items": {
         "type": "object",
+        "additionalProperties": false,
         "properties": {
-          "id": { "type": "string", "pattern": "^(BR|FR|NFR|AC)-[0-9]+$" },
-          "type": { "enum": ["BR", "FR", "NFR", "AC"] },
-          "description": { "type": "string" },
-          "links": {
-            "type": "array",
-            "items": { "type": "string" },
-            "description": "IDs of linked artifacts (SCR, API, TBL, FLOW, TV, TC)"
+          "id": {
+            "type": "string",
+            "pattern": "^(BR|FR|SCRR|RPT|NTF|BAT|DR|IR|MIG|IMP|TST|AC|CON|TBD|RSK)-[0-9]{3,}$|^NFR-[A-Z0-9]+-[0-9]{3,}$"
           },
-          "status": { "enum": ["Proposed", "Defined", "Implemented", "Verified"] }
+          "type": {
+            "enum": ["BR", "FR", "SCRR", "RPT", "NTF", "BAT", "DR", "IR", "MIG", "IMP", "TST", "NFR", "AC", "CON", "TBD", "RSK"]
+          },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "priority": { "enum": ["Must", "Should", "Could", "Won't", "Unset"] },
+          "status": { "enum": ["Proposed", "Defined", "Blocked", "Implemented", "Verified", "Rejected", "Deferred"] },
+          "links": { "$ref": "#/definitions/links" }
         },
         "required": ["id", "type", "status"]
-      }
+      },
+      "default": []
     },
     "designs": {
       "type": "array",
       "items": {
         "type": "object",
+        "additionalProperties": false,
         "properties": {
-          "id": { "type": "string", "pattern": "^(SCR|API|TBL|FLOW)-[0-9]+$" },
-          "type": { "enum": ["SCR", "API", "TBL", "FLOW"] },
-          "links": {
-            "type": "array",
-            "items": { "type": "string" }
-          }
+          "id": {
+            "type": "string",
+            "pattern": "^SCR-[A-Z0-9]+-[0-9]{3,}$|^API-[0-9]{3,}$|^TBL-[0-9]{3,}$|^FLOW-[0-9]{3,}$|^ERR-[A-Z0-9]+-[0-9]{3,}$"
+          },
+          "type": { "enum": ["SCR", "API", "TBL", "FLOW", "ERR"] },
+          "title": { "type": "string" },
+          "status": { "enum": ["Draft", "Defined", "Implemented", "Verified", "Deprecated"] },
+          "links": { "$ref": "#/definitions/links" }
         },
         "required": ["id", "type"]
-      }
+      },
+      "default": []
     },
     "tests": {
       "type": "array",
       "items": {
         "type": "object",
+        "additionalProperties": false,
         "properties": {
-          "id": { "type": "string", "pattern": "^(TV|TC|UT)-[0-9]+$" },
-          "type": { "enum": ["TV", "TC", "UT"] },
-          "links": {
-            "type": "array",
-            "items": { "type": "string" }
+          "id": {
+            "type": "string",
+            "pattern": "^(UTV|UT|TV|TC|TD|UTF)-[0-9]{3,}$"
           },
-          "result": { "enum": ["Pass", "Fail", "Pending", "N/A"] }
+          "type": { "enum": ["UTV", "UT", "TV", "TC", "TD", "UTF"] },
+          "level": { "enum": ["unit", "integration", "system", "acceptance", "performance", "security", "operation", "fixture"] },
+          "status": { "enum": ["Designed", "Implemented", "Executed", "Skipped", "Blocked"] },
+          "result": { "enum": ["Pass", "Fail", "Pending", "Blocked", "N/A"] },
+          "links": { "$ref": "#/definitions/links" }
         },
         "required": ["id", "type", "result"]
-      }
+      },
+      "default": []
     }
   },
   "required": ["project", "requirements"]

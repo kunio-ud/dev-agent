@@ -4,7 +4,8 @@
       "Bash(rtk ls *)",
       "Bash(mkdir -p c:/Users/user/Desktop/sss-memo/.claude/skills)",
       "Bash(cp -r c:/Users/user/Desktop/sss-memo/.github/skills/basic-design-doc c:/Users/user/Desktop/sss-memo/.claude/skills/)",
-      "Bash(rtk wc *)"
+      "Bash(rtk wc *)",
+      "Bash(rtk git *)"
     ]
   }
 }

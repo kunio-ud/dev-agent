@@ -23,8 +23,8 @@ requirements-definition-doc
   -> unit-test-design（差分確認）
   -> test-design
   -> test-execution-report
-  -> release-readiness
   -> operation-design-doc
+  -> release-readiness
 ```
 
 ## 主な役割
@@ -48,8 +48,8 @@ requirements-definition-doc
 | 単体テスト差分確認 | `unit-test-design` | 実装後のUT観点状態更新、UTコード対応レビュー |
 | テスト設計 | `test-design` | テスト観点表、テストケース、テスト計画 |
 | テスト実施 | `test-execution-report` | テスト結果、証跡、障害一覧 |
-| リリース判定 | `release-readiness` | Go/No-Go、残リスク、切戻し確認 |
 | 運用設計 | `operation-design-doc` | 運用設計書、監視、Runbook |
+| リリース判定 | `release-readiness` | Go/No-Go、残リスク、切戻し確認 |
 
 ## 使い方
 
@@ -80,7 +80,21 @@ requirements-definition-doc
 | **基本設計 → 単体テスト設計／コーディングルール** | **(1) `2.4 アーキテクチャ方針・実装制約` の方針合意が完成（採用ライブラリのバージョン、レイヤー責務、横断ライブラリの「選定」が具体的に記載／【TODO】が無い）／ (2) TODO 集約レポートに `BLOCKER` が 0 件／ (3) `openapi.yaml` が SSoT として存在し `x-api-id`・`operationId` が全 operation に付与済み／ (4) 主要シーケンス図に準正常系を含む** | `basic-design-doc` に戻して該当章を補強。BLOCKERは顧客／PM確認 |
 | **コーディングルール → 実装** | **(1) `CODING_RULES.md` が基本設計 2.4 を具体化済み（命名規則・ディレクトリ構成・エラー実装形・ログフォーマット・Lint設定・テストツールが記載）／ (2) 2.4 とのズレが無い／ (3) 実装で使うコマンド（test / build / lint）が明記されている** | `project-coding-rules` に戻る。2.4 とズレている場合は、案件方針が変わったのか規約の不備かを切り分け、必要なら 2.4 側を改訂 |
 | 実装 → テスト設計 | 実装完了、UT緑、要件IDと実装の対応がメモ化済み | `implementation-coding` に戻る |
-| テスト実施 → リリース判定 | Must テスト全消化、未解決障害が許容内、移行・切戻し手順あり | `test-execution-report` に戻る |
+| テスト実施 → 運用設計 | Must テスト全消化、未解決障害が許容内、運用設計に必要な NFR/ログ/監視観点が揃っている | `test-execution-report` または `test-design` に戻る |
+| 運用設計 → リリース判定 | Runbook、監視・アラート、バックアップ/リストア、切戻し手順が作成され、運用リハーサル evidence がある | `operation-design-doc` に戻る |
+
+## 共通契約
+
+フェーズ間の引き継ぎは [references/contracts.md](./references/contracts.md) を正とする。
+
+- `docs/traceability.json`: 要件、設計、テストの ID とリンクの正本。
+- `docs/evidence/{phase}.evidence.json`: 各フェーズ完了の証拠パケット。
+- `schemas/traceability.schema.json`: traceability の最低限の構造検証。
+- `schemas/evidence.schema.json`: evidence packet の最低限の構造検証。
+- `scripts/validate_traceability.py`: ID 重複、リンク参照、AC から TC への到達性を検証。
+- `scripts/validate_evidence.py`: evidence schema、artifact sha256、blocker、command 結果を検証。
+
+フェーズゲートでは Markdown を直接信用しない。`docs/traceability.json` と対象フェーズまでの `docs/evidence/*.evidence.json` を検証し、Markdown は人間向けビューとして扱う。
 
 ## コンテキスト管理方針
 

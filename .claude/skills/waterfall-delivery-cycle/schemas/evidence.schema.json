@@ -1,9 +1,10 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Phase Evidence",
-  "description": "Evidence of phase completion for phase gate validation",
+  "title": "Phase Evidence Packet",
+  "description": "Machine-verifiable evidence of phase completion for phase gate validation.",
   "type": "object",
-  "properties": {
+  "additionalProperties": false,
+  "definitions": {
     "phase": {
       "enum": [
         "requirements-definition",
@@ -14,37 +15,69 @@
         "unit-test-design-post",
         "test-design",
         "test-execution",
-        "release-readiness",
-        "operation-design"
+        "operation-design",
+        "release-readiness"
       ]
-    },
-    "status": { "enum": ["Completed", "In-Progress", "Failed"] },
-    "completion_date": { "type": "string", "format": "date-time" },
+    }
+  },
+  "properties": {
+    "schema_version": { "type": "string", "default": "1.0.0" },
+    "project": { "type": "string" },
+    "phase": { "$ref": "#/definitions/phase" },
+    "status": { "enum": ["Completed", "In-Progress", "Failed", "Blocked"] },
+    "completed_at": { "type": "string", "format": "date-time" },
     "metrics": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "blockers": { "type": "integer", "minimum": 0 },
         "todos": { "type": "integer", "minimum": 0 },
-        "test_count": { "type": "integer" },
-        "test_success": { "type": "integer" },
-        "test_failure": { "type": "integer" },
+        "test_count": { "type": "integer", "minimum": 0 },
+        "test_success": { "type": "integer", "minimum": 0 },
+        "test_failure": { "type": "integer", "minimum": 0 },
+        "test_pending": { "type": "integer", "minimum": 0 },
         "coverage": { "type": "number", "minimum": 0, "maximum": 100 }
       },
       "required": ["blockers", "todos"]
+    },
+    "blocker_ids": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^(TBD|RSK|BUG|DEF)-[0-9]{3,}$" },
+      "uniqueItems": true,
+      "default": []
     },
     "artifacts": {
       "type": "array",
       "items": {
         "type": "object",
+        "additionalProperties": false,
         "properties": {
-          "path": { "type": "string" },
-          "hash": { "type": "string" },
-          "type": { "type": "string" }
+          "path": { "type": "string", "minLength": 1 },
+          "type": { "type": "string", "minLength": 1 },
+          "hash_algorithm": { "enum": ["sha256"] },
+          "hash": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" }
         },
-        "required": ["path"]
-      }
+        "required": ["path", "type", "hash_algorithm", "hash"]
+      },
+      "minItems": 1
     },
-    "verification_command": { "type": "string" },
+    "commands": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "command": { "type": "string", "minLength": 1 },
+          "exit_code": { "type": "integer" },
+          "status": { "enum": ["Pass", "Fail", "Skipped"] },
+          "executed_at": { "type": "string", "format": "date-time" },
+          "summary": { "type": "string" }
+        },
+        "required": ["command", "exit_code", "status"]
+      },
+      "default": []
+    },
     "approver": { "type": "string" }
   },
   "required": ["phase", "status", "metrics", "artifacts"]

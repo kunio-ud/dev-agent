@@ -84,8 +84,8 @@ argument-hint: '対象機能名、要件ID/設計ID、またはテスト対象�
 ## 完了報告
 
 - 作成した観点表/テストケース/テスト計画
-- `traceability.json` 更新（TV-/TC-ID の追加と紐付け）
-- `evidence.json`（テスト設計完了の証拠）
+- `docs/traceability.json` 更新（TV-/TC-ID の追加と紐付け）
+- `docs/evidence/test-design.evidence.json`（テスト設計完了の証拠）
 - `unit-test-design` で設計済み/実装済み/実行済みの観点（引き継ぎ元）
 - 高リスク観点
 - 自動化候補

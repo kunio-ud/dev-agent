@@ -123,6 +123,6 @@ argument-hint: '実装対象の機能名、要件ID/設計ID、または変更�
 - 変更した内容
 - 変更した主なファイル
 - 実行した検証
-- `evidence.json`（実装・UT 完了の証拠、検証コマンド、BLOCKER 0件の証明）
+- `docs/evidence/implementation.evidence.json`（実装完了の証拠、検証コマンド、BLOCKER 0件の証明、成果物 hash）
 - 未実行の検証と理由
 - 残リスクまたは次に確認すべき事項

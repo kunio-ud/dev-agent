@@ -285,14 +285,14 @@ Baseの詳細は [references/standards-basis.md](./references/standards-basis.md
 **最終成果物セット**
 1. 章別 Markdown ファイル群（または単一 `requirements.md`）
 2. 要件一覧（`requirements-list.md`）
-3. `traceability.json`（正本：要件と受入条件の ID 管理）
-4. `evidence.json`（正本：要件定義完了の証拠、BLOCKER 件数）
+3. `docs/traceability.json`（正本：要件と受入条件の ID 管理）
+4. `docs/evidence/requirements-definition.evidence.json`（正本：要件定義完了の証拠、BLOCKER 件数、成果物 hash）
 5. TODO 集約レポート（BLOCKER 件数・確認先を必ず明記）
 6. 章構成サマリ（採用／省略章と根拠）
 
 **後続フェーズ（basic-design-doc）への引き継ぎ**
 
-完了報告には以下を必ず含める。これが揃っていれば、`basic-design-doc` は `traceability.json` を読むだけで章立てに入れる。
+完了報告には以下を必ず含める。これが揃っていれば、`basic-design-doc` は `docs/traceability.json` を読むだけで章立てに入れる。
 
 | 引き継ぎ項目 | 要件定義の参照先 | 直接の読み手（基本設計の対応章） |
 |------------|--------------|---------------------------|
