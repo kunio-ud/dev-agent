@@ -2,6 +2,8 @@
 name: test-design
 description: '要件定義・基本設計・実装コード・既存テストからテスト観点を抽出し、テストレベル、優先度、自動化方針、テストケースへ落とし込むスキル。単体、結合、システム、受入、性能、セキュリティ、外部IF、バッチ、DB、画面、APIの観点をトレーサビリティ付きで整理する。Use when: テスト観点を出したい、テスト設計したい、結合テスト観点を作りたい、システムテスト観点を作りたい、受入テストを整理したい、要件定義や基本設計からテストケースを作りたい、既存テストの不足を洗い出したい, test design, test viewpoints, test cases, integration test, system test, acceptance test.'
 argument-hint: '対象機能名、要件ID/設計ID、またはテスト対象の概要'
+model: claude-opus-4-7
+effort: high
 ---
 
 # テスト設計スキル

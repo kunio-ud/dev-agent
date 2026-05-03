@@ -2,6 +2,8 @@
 name: unit-test-design
 description: '基本設計書を主入力として単体テスト観点を先行設計し、実装後はコード差分から漏れを補強するスキル。Service、純粋関数、Repository mock/fake/DB込み判断、validation、例外、境界値、権限、時刻依存、Result/EitherなどをUTケースへ落とし込む。Use when: 基本設計から単体テストを設計したい、UT観点を出したい、実装前にエッジケースを洗い出したい、Serviceのテストを作りたい、実装コードからテスト漏れをレビューしたい、unit test design, unit testing, service tests.'
 argument-hint: '対象Service/関数/ファイル、または関連要件ID・基本設計ID'
+model: claude-sonnet-4-6
+effort: high
 ---
 
 # 単体テスト設計スキル

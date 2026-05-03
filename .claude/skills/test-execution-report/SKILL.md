@@ -2,6 +2,8 @@
 name: test-execution-report
 description: 'テスト設計に基づいてテスト実施結果、証跡、失敗、障害票、再テスト、未実施、残リスクを整理するスキル。Use when: テスト結果をまとめたい、テスト実施報告を作りたい、証跡を整理したい、バグ一覧を作りたい、再テスト状況を整理したい, test execution report, test results, QA report.'
 argument-hint: '対象テスト計画、観点表、テスト結果、またはリリース対象'
+model: claude-sonnet-4-6
+effort: medium
 ---
 
 # テスト実施報告スキル

@@ -2,6 +2,8 @@
 name: operation-design-doc
 description: '本番運用に必要な運用設計書を作成・更新するスキル。監視、ログ、アラート、バックアップ、障害対応、権限管理、定期作業、SLA、運用引継ぎを扱う。Use when: 運用設計書を作りたい、監視設計したい、障害対応手順を作りたい、バックアップやログ運用を整理したい、運用引継ぎしたい, operation design, runbook, monitoring, alerting, incident response.'
 argument-hint: '対象システム、運用対象、非機能要件、またはリリース対象'
+model: claude-opus-4-7
+effort: high
 ---
 
 # 運用設計書作成スキル

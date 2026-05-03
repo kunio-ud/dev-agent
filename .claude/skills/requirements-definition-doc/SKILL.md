@@ -2,6 +2,8 @@
 name: requirements-definition-doc
 description: '日本のSI案件で使いやすい要件定義書を作成・更新するスキル。業務要件、システム化範囲、ステークホルダー、現状/To-Be業務、機能要件、非機能要件、制約、受入条件、優先度、要件ID、トレーサビリティを体系化する。Use when: 要件定義書を書きたい、要件を整理したい、RFP/ヒアリングメモから要件定義を作りたい、業務要件・機能要件・非機能要件を定義したい、スコープや受入条件を明確化したい、基本設計の前段ドキュメントを作りたい。Triggers: 要件定義, 要件定義書, 要件整理, 要件一覧, 業務要件, システム要件, 機能要件, 非機能要件, スコープ定義, As-Is, To-Be, 業務フロー, ユースケース, 受入条件, acceptance criteria, requirements definition, requirements document, BRD, SRS, RFP, stakeholder, use case, traceability.'
 argument-hint: '対象システム名、案件概要、または既存資料への参照'
+model: claude-opus-4-7
+effort: high
 ---
 
 # 要件定義書作成スキル

@@ -2,6 +2,8 @@
 name: implementation-coding
 description: '要件定義・基本設計を受けて、既存コードベースに機能実装・改修を行うための実装フェーズ特化スキル。コード調査、影響範囲特定、実装方針、既存設計への適合、テスト追加、動作確認、レビュー観点、リスク整理を扱う。Use when: 実装したい、コードを書きたい、機能追加したい、改修したい、設計書から実装したい、既存コードに合わせて実装したい、テストを追加したい、API/UI/DB/バッチを実装したい、implementation, coding, feature implementation, code change, refactor with tests.'
 argument-hint: '実装対象の機能名、要件ID/設計ID、または変更概要'
+model: claude-sonnet-4-6
+effort: high
 ---
 
 # 実装コーディングスキル

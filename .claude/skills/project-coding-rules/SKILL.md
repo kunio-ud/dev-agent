@@ -2,6 +2,8 @@
 name: project-coding-rules
 description: '各リポジトリ/プロジェクトのコーディングルールを作成・更新するスキル。リポジトリ構成、言語、フレームワーク、対象レイヤー（フロントエンド、バックエンド、API、DB、バッチ、IaC/CDK、テスト）、既存コード規約を調査し、実装前に参照できるCODING_RULES.mdや開発規約を整備する。Use when: コーディングルールを作りたい、開発規約を作りたい、リポジトリの実装ルールを整理したい、フロント/サーバー/CDKのルールを決めたい、実装前のプロジェクト規約を作りたい, coding rules, coding standards, development guidelines, repository conventions.'
 argument-hint: '対象リポジトリ、技術スタック、または作成したい規約の範囲'
+model: claude-sonnet-4-6
+effort: medium
 ---
 
 # プロジェクトコーディングルール作成スキル

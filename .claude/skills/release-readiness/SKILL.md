@@ -2,6 +2,8 @@
 name: release-readiness
 description: 'リリース可否を判定するために、要件充足、Mustテスト消化、未解決障害、移行、切戻し、運用引継ぎ、残リスクを確認するスキル。Use when: リリース判定したい、リリース準備を確認したい、移行判定したい、Go/No-Go判断をしたい、残リスクを整理したい, release readiness, go no-go, deployment readiness.'
 argument-hint: 'リリース対象、テスト結果、障害一覧、または移行計画'
+model: claude-opus-4-7
+effort: high
 ---
 
 # リリース判定スキル

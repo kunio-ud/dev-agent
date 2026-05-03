@@ -2,6 +2,8 @@
 name: waterfall-delivery-cycle
 description: 'ウォーターフォール型の開発サイクルをオーケストレーションする入口スキル。要件定義、基本設計、コーディングルール、実装、単体テスト設計、テスト設計、テスト実施報告、リリース判定、運用設計の各スキルをフェーズ判定・成果物確認・完了条件確認・トレーサビリティ維持の観点でつなぐ。Use when: 案件を進めたい、ウォーターフォールで進めたい、Epicをリリース可能な状態まで進めたい、次に何をすべきか判断したい、開発工程を管理したい, waterfall delivery, delivery cycle, phase gate, orchestration.'
 argument-hint: '対象案件名、Epic名、現在の成果物、または進めたいフェーズ'
+model: claude-opus-4-7
+effort: high
 ---
 
 # ウォーターフォール開発サイクルスキル

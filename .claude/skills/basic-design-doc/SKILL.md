@@ -2,6 +2,8 @@
 name: basic-design-doc
 description: '日本のSI標準に沿った基本設計書（外部設計書）を作成するスキル。新規Webアプリケーション・リプレイス・クラウド移行・差分設計・バッチ処理の5シナリオに対応し、画面/DB/IF/処理フロー/非機能要件を体系化する。Use when: 基本設計書を書きたい、外部設計書を作成したい、画面・DB・APIの設計をまとめたい、非機能要件を定義したい、既存システムの差分設計書を作りたい、リプレイス／クラウド移行の設計書を作りたい。Triggers: 基本設計, 外部設計, 基本設計書, 外部設計書, basic design document, system design, 画面設計, 画面遷移, DB設計, テーブル定義, ER図, IF設計, API設計, OpenAPI, 処理フロー, シーケンス図, アクティビティ図, 状態遷移図, 非機能要件, エラー設計, リプレイス, システム再構築, クラウド移行, AWS移行, 差分設計, 機能追加設計, バッチ処理設計, 新規開発, replacement, system migration, batch design.'
 argument-hint: '対象システム名・機能名、または既存ドキュメントへの参照'
+model: claude-opus-4-7
+effort: high
 ---
 
 # 基本設計書作成スキル
