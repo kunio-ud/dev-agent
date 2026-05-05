@@ -45,6 +45,41 @@ effort: high
 
 ## 手順
 
+### Step 0 — 既存基本設計の更新・レビュー時の入口
+
+既存プロジェクトの `docs/02_basic-design/` をレビュー・修正する場合は、新規作成手順に入る前にこの Step を実行する。
+
+1. 最初に `docs/02_basic-design/00-index.md` を読む。存在しない場合は、`docs/02_basic-design/` 配下の章別ファイル一覧を確認して入口ページの作成を提案する。
+2. 成果物を作り直さず、既存ファイル間の整合性を優先して修正する。
+3. 「Markdown本文」「OpenAPI」「Redoc」「証跡」「コーディングルール」のどれを直す依頼かを切り分ける。
+4. 既存設計のレビューでは、提案だけで終わらず、ユーザーが修正を求めた場合は該当ファイルへ直接反映する。
+
+**既存プロジェクトの正本優先順位**
+
+| 領域 | 正本 | 派生物・補助 |
+|---|---|---|
+| 基本設計の入口 | `docs/02_basic-design/00-index.md` | 章別 Markdown |
+| API物理定義 | `docs/02_basic-design/openapi.yaml` | `docs/02_basic-design/redoc.html` |
+| API設計方針 | `docs/02_basic-design/06-interface-design.md` | `openapi.yaml` に書けない設計方針 |
+| データ構造・状態遷移 | `docs/02_basic-design/05-data-design.md` | `07-process-flow.md` のシーケンス図 |
+| 処理順序・例外フロー | `docs/02_basic-design/07-process-flow.md` | Mermaid 図 |
+| エラーコード | `docs/02_basic-design/09-error-design.md` | `openapi.yaml` の error schema |
+| 実装制約の具体形 | `docs/03_coding-rules/CODING_RULES.md` | `02-architecture.md` 2.4 の方針 |
+
+**OpenAPI変更時の必須手順**
+
+`docs/02_basic-design/openapi.yaml` を変更した場合は、必ず以下を実行する。
+
+1. Redocly lint を実行する。
+   - 例: `npx @redocly/cli lint docs/02_basic-design/openapi.yaml`
+2. `redoc.html` を再生成する。
+   - 例: `npx @redocly/cli build-docs docs/02_basic-design/openapi.yaml -o docs/02_basic-design/redoc.html`
+3. `openapi.yaml` と `redoc.html` の同期を確認する。
+   - 例: 新規 schema 名、`required`、HTTP status、`enum` を `grep` / `rg` で確認する。
+4. 最終報告では lint 結果と Redoc 再生成の有無を明記する。
+
+> **禁止**: `redoc.html` を API 定義の正として扱わない。Redoc は常に `openapi.yaml` から生成される派生物として扱う。
+
 ### Step 1 — インプット収集とブロッカー早期検知
 
 執筆を始める前に、以下のインプットを集める。
@@ -173,6 +208,8 @@ effort: high
 | 変更前／変更後の対比表、影響分析、ロールバック計画 | [diff-design.md](./assets/templates/diff-design.md) | 機能追加・改修（差分）／リプレイスの新機能差分 |
 
 > **API設計の Single Source of Truth (SSoT) ルール**: API の物理的な定義（パス・IO・ステータスコード）は [openapi.yaml](./assets/templates/openapi-template.yaml) を**唯一の正**とする。Markdown 側 ([api-interface.md](./assets/templates/api-interface.md)) は OpenAPI に書けない／書きにくい「設計方針」「採用根拠」「横断ルール」のみを扱い、**API一覧表は手書きしない**（必要なら OpenAPI から CI で自動生成）。両者は API-ID（`API-XXX`）で相互参照する。
+
+> **既存プロジェクトでの補足**: `docs/02_basic-design/openapi.yaml` を変更したら、Step 0 の「OpenAPI変更時の必須手順」に従い、Redocly lint と `redoc.html` 再生成まで完了させる。`redoc.html` だけを手編集しない。
 
 執筆時のルール（詳細な整合チェックは「品質チェックリスト」を正とする）：
 
@@ -305,7 +342,7 @@ effort: high
 **レンダリング前提**
 
 - Markdown / Mermaid: GitHub・VSCode Preview・GitLab で表示確認
-- OpenAPI: Redoc または Swagger UI でレンダリング
+- OpenAPI: Redoc または Swagger UI でレンダリング。Redoc HTML は `openapi.yaml` から生成する派生物であり、API定義の正本ではない。
 
 **Word / Excel / PDF 納品が必要な場合の運用**
 

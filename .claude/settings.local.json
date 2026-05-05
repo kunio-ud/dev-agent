@@ -22,7 +22,10 @@
       "Edit(/.claude/skills/test-design/**)",
       "Edit(/.claude/skills/test-execution-report/**)",
       "Edit(/.claude/skills/operation-design-doc/**)",
-      "Edit(/.claude/skills/release-readiness/**)"
+      "Edit(/.claude/skills/release-readiness/**)",
+      "Bash(where npx *)",
+      "Bash(rtk npx *)",
+      "Bash(rtk read *)"
     ]
   }
 }
